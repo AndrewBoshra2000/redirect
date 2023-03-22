@@ -2,7 +2,7 @@ const express = require("express");
 const fetch = require("node-fetch");
 
 const app = express();
-const getPage = ({ title = "", description = "", image = "" }) => `
+const getPage = (title = "", description = "", image = "") => `
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,11 +38,11 @@ app.get("/", async (req, res) => {
         const medicine = await resp.json();
 
         return res.send(
-            getPage({
-                description: medicine?.description,
-                image: medicine?.image,
-                title: medicine?.product_name,
-            })
+            getPage(
+                medicine?.product_name,
+                medicine?.description,
+                medicine?.image
+            )
         );
     }
 
