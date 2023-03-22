@@ -1,31 +1,27 @@
 const express = require("express");
 const fetch = require("node-fetch");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
-const getPage = (title = "", description = "", image = "") => `
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="${title}" />
-    <meta property="og:description" content="${description}" />
-    <meta property="og:image" content="${image}" />
-    <meta property="og:url" content="http://localhost:3000" />
+const getPage = (
+    title = "",
+    description = "",
+    image = "",
+    url = "http://localhost:3000"
+) => {
+    const filePath = path.join(__dirname, "public", "index.html");
 
-    <title>Medic App Redirect</title>
-    <script type="text/javascript" src="./index.js"></script>
-</head>
+    const file = fs.readFileSync(filePath, "utf8");
 
-<body>
-    <h1>Medic App Redirect</h1>
-    <p>Redirecting to Medic App...</p>
-</body>
+    const html = file
+        .replace("{{title}}", title)
+        .replace("{{description}}", description)
+        .replace("{{image}}", image);
 
-</html>
-`;
+    return html;
+};
 app.get("/", async (req, res) => {
     const path = req.query.path;
 
