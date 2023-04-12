@@ -5,10 +5,11 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6",
     "node-fetch": "2"
   },
-  "scripts":{
-    "build":"npm i ",
+  "scripts": {
+    "build": "npm i ",
     "start": "node app.js"
   },
   "devDependencies": {
